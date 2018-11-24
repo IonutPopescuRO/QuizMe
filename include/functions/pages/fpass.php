@@ -2,7 +2,7 @@
 $user = new USER();
 
 if($user->is_logged_in()!="")
-	$user->redirect('app');
+	$user->redirect('app/');
 
 if(isset($_POST['username']))
 {

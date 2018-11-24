@@ -1,5 +1,5 @@
 <?php
-	$site_title = 'QuizME';
+	$site_title = 'QuizMe!';
 	$site_url = 'http://localhost/QuizMe/';
 	
 	$SMTPAuth = true;

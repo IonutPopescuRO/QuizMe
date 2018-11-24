@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once 'include/classes/user.php';
 require_once 'include/functions/pages/app.php';
 ?>
 <!DOCTYPE html>
@@ -9,7 +8,7 @@ require_once 'include/functions/pages/app.php';
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title><?php print $site_title; ?></title>
+  <title><?php print $title. ' | '.$site_title; ?></title>
   <base href="<?php print $site_url; ?>">
 
   <link rel="stylesheet" href="vendor/iconfonts/mdi/css/materialdesignicons.min.css">
@@ -24,13 +23,12 @@ require_once 'include/functions/pages/app.php';
 
 <body>
   <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html">
+        <a class="navbar-brand brand-logo" href="app/">
           <img src="images/logo.png" alt="logo" />
         </a>
-        <a class="navbar-brand brand-logo-mini" href="index.html">
+        <a class="navbar-brand brand-logo-mini" href="app/">
           <img src="images/logo-mini.svg" alt="logo" />
         </a>
       </div>
@@ -106,80 +104,12 @@ require_once 'include/functions/pages/app.php';
               </a>
             </div>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
-              <i class="mdi mdi-bell"></i>
-              <span class="count">4</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-              <a class="dropdown-item">
-                <p class="mb-0 font-weight-normal float-left">You have 4 new notifications
-                </p>
-                <span class="badge badge-pill badge-warning float-right">View all</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-success">
-                    <i class="mdi mdi-alert-circle-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-medium text-dark">Application Error</h6>
-                  <p class="font-weight-light small-text">
-                    Just now
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-warning">
-                    <i class="mdi mdi-comment-text-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-medium text-dark">Settings</h6>
-                  <p class="font-weight-light small-text">
-                    Private message
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <div class="preview-icon bg-info">
-                    <i class="mdi mdi-email-outline mx-0"></i>
-                  </div>
-                </div>
-                <div class="preview-item-content">
-                  <h6 class="preview-subject font-weight-medium text-dark">New user registration</h6>
-                  <p class="font-weight-light small-text">
-                    2 days ago
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <span class="profile-text">Hello, <?php print $user_rows['userName']; ?>!</span>
               <img class="img-xs rounded-circle" src="https://www.gravatar.com/avatar/<?php print $gravatar; ?>" alt="<?php print $user_rows['userName']; ?>">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-              <a class="dropdown-item p-0">
-                <div class="d-flex border-bottom">
-                  <div class="py-3 px-4 d-flex align-items-center justify-content-center">
-                    <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
-                  </div>
-                  <div class="py-3 px-4 d-flex align-items-center justify-content-center border-left border-right">
-                    <i class="mdi mdi-account-outline mr-0 text-gray"></i>
-                  </div>
-                  <div class="py-3 px-4 d-flex align-items-center justify-content-center">
-                    <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
-                  </div>
-                </div>
-              </a>
               <a class="dropdown-item mt-2">
                 Manage Accounts
               </a>
@@ -212,9 +142,9 @@ require_once 'include/functions/pages/app.php';
 					<a target="_blank" href="https://en.gravatar.com/site/login"><img src="https://www.gravatar.com/avatar/<?php print $gravatar; ?>" alt="<?php print $user_rows['userName']; ?>"></a>
                 </div>
                 <div class="text-wrapper">
-                  <p class="profile-name">Richard V.Welsh</p>
+                  <p class="profile-name"><?php print $user_rows['userName']; ?></p>
                   <div>
-                    <small class="designation text-muted">Manager</small>
+                    <small class="designation text-muted"><?php if($user_rows['admin']) print 'Administrator'; else print 'User'; ?></small>
                     <span class="status-indicator online"></span>
                   </div>
                 </div>
@@ -225,7 +155,7 @@ require_once 'include/functions/pages/app.php';
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="app">
+            <a class="nav-link" href="app/">
               <i class="menu-icon mdi mdi-television"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -277,12 +207,19 @@ require_once 'include/functions/pages/app.php';
               <span class="menu-title">Administration</span>
               <i class="menu-arrow"></i>
             </a>
+			<?php if($user_rows['admin']) { ?>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
                   <a class="nav-link" href="app/questions">
 					<i class="menu-icon fa fa-question"></i>
 					<span class="menu-title">Managing questions</span>
+				  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="app/categories">
+					<i class="menu-icon fa fa-folder-open-o"></i>
+					<span class="menu-title">Managing question categories</span>
 				  </a>
                 </li>
                 <li class="nav-item">
@@ -293,6 +230,7 @@ require_once 'include/functions/pages/app.php';
                 </li>
               </ul>
             </div>
+			<?php } ?>
           </li>
         </ul>
       </nav>
@@ -302,23 +240,17 @@ require_once 'include/functions/pages/app.php';
 			<?php
 				switch ($current_page) {
 					case 'questions':
-						$page = 'questions';
-						$title = 'Managing questions';
 						include 'pages/admin/questions.php';
 						break;
-					case 'redeem':
-						$page = 'redeem';
-						$title = $lang['redeem-codes'];
+					case 'categories':
+						include 'pages/admin/categories.php';
 						break;
 					default:
-						$page = 'news';
-						$title = $lang['news'];
-						include 'include/functions/news.php';
+						include 'include/functions/dashboard.php';
 				}
 			?>
         </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
+		
         <footer class="footer">
           <div class="container-fluid clearfix">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright &copy; 2018 <a href="https://ionut.work/" target="_blank">ionut.work</a>. All rights reserved.</span>
@@ -427,17 +359,20 @@ require_once 'include/functions/pages/app.php';
 				e.preventDefault(); $(this).parent('div').parent('div').remove();
 			})
 		});
+		
 		function answerType(that) {
-			var parent = that.parentNode.parentNode;
+			//that.find("div#test").css('display': 'block');
+			alert(that.find("#test").val);
 			
-			parent.getElementById("test").style.display = "block";
+			
+			/*
 			alert(parent.id);
 			if (that.value == "other") {
 				alert("check");
 				document.getElementById("ifYes").style.display = "block";
 			} else {
 				document.getElementById("ifYes").style.display = "none";
-			}
+			}*/
 		}
 	</script>
   <?php } ?>

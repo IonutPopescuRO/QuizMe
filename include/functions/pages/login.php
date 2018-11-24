@@ -2,7 +2,7 @@
 	$user = new USER();
 	
 	if($user->is_logged_in()!="")
-		$user->redirect('app');
+		$user->redirect('app/');
 
 	if(isset($_POST['username']) && isset($_POST['password']))
 	{
@@ -10,6 +10,6 @@
 		$password = strip_tags($_POST['password']);
 		
 		if($user->login($username,$password))
-			$user->redirect('app');
+			$user->redirect('app/');
 	}
 ?>

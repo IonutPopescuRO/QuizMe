@@ -14,30 +14,119 @@
 
 						<input type="file" class="dropify" id="files" data-allowed-file-extensions="csv" />
 
+  <table id="contents" style="width:100%; height:400px;" border>
+  </table>
+  
 							<div class="form-group"></br>
 								<div class="questions_container">
-									<div class="form-group">
-										<label for="months">Question</label>
-										<textarea class="form-control" name="questions[]" rows="4" required></textarea>
-									</div>
-									<div class="form-group">
-										<label for="months">Answer type</label>
-										<select class="form-control" name="answer_type[]" onchange="answerType(this);">
-											<option value="1" selected>One answer</option>
-											<option value="2">Many answers</option>
-											<option value="3">Free text answer</option>
-										</select>
-									</div>
-									
-									<div id="test" style="display: none;">salut</div>
-									
-									<div class="form-group">
-										<label for="months">Difficulty level</label>
-										<select class="form-control" name="question_type[]">
-											<option value="1">Easy</option>
-											<option value="2" selected>Normal</option>
-											<option value="3">Hard</option>
-										</select>
+									<div>
+										<div class="form-group">
+											<label for="months">Question</label>
+											<textarea class="form-control" name="questions[]" rows="4" required></textarea>
+										</div>
+										<div class="form-group">
+											<label for="months">Answer type</label>
+											<select class="form-control" name="answer_type[]" onchange="answerType($(this).parent().parent());">
+												<option value="1" selected>One answer</option>
+												<option value="2">Many answers</option>
+												<option value="3">Free text answer</option>
+											</select>
+										</div>
+										
+										<div class="form-group" id="many_answer">
+											<label for="months">Answer</label>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-1"></div>
+													<div class="col-1">
+														<input type="checkbox" class="form-check-input" name="answer_many_check[]">
+													</div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_many[]"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-1"></div>
+													<div class="col-1">
+														<input type="checkbox" class="form-check-input" name="answer_many_check[]">
+													</div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_many[]"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-1"></div>
+													<div class="col-1">
+														<input type="checkbox" class="form-check-input" name="answer_many_check[]">
+													</div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_many[]"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-1"></div>
+													<div class="col-1">
+														<input type="checkbox" class="form-check-input" name="answer_many_check[]">
+													</div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_many[]"></div>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group" id="one_answer">
+											<label for="months">Answer</label>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-1"></div>
+													<div class="col-1">
+														<input type="radio" class="form-check-input" name="answer_one_check[]" value="0">
+													</div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_one[]"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-1"></div>
+													<div class="col-1">
+														<input type="radio" class="form-check-input" name="answer_one_check[]" value="1">
+													</div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_one[]"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-1"></div>
+													<div class="col-1">
+														<input type="radio" class="form-check-input" name="answer_one_check[]" value="2">
+													</div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_one[]"></div>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<div class="col-1"></div>
+													<div class="col-1">
+														<input type="radio" class="form-check-input" name="answer_one_check[]" value="3">
+													</div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_one[]"></div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group" id="free_answer">
+											<label for="months">Answer</label>
+											<textarea class="form-control" name="free_answer[]" rows="2" required></textarea>
+										</div>
+										
+										<div id="test" style="display: none;">salut</div>
+										
+										<div class="form-group">
+											<label for="months">Difficulty level</label>
+											<select class="form-control" name="question_type[]">
+												<option value="1">Easy</option>
+												<option value="2" selected>Normal</option>
+												<option value="3">Hard</option>
+											</select>
+										</div>
 									</div>
 								</div>
 								<button class="add_form_field file-upload-browse btn btn-info pull-right" type="button">+</button>
@@ -211,4 +300,3 @@
             </div>
         </div>
     </div>
-</div>

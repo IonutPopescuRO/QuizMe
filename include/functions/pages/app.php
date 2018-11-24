@@ -1,5 +1,9 @@
 <?php
+	require_once 'include/classes/user.php';
+	require_once 'include/classes/questions.php';
+	
 	$user = new USER();
+	$questions = new QUESTIONS();
 	
 	if(!$user->is_logged_in())
 		$user->redirect('login');
@@ -16,9 +20,9 @@
 	
 	$current_page = isset($_GET['p']) ? $_GET['p'] : null;
 	
-	$admin_pages = array("questions", "events");
+	$admin_pages = array("questions", "events", "categories");
 	if(in_array($current_page, $admin_pages) && $user_rows['admin']<1)
-		$user->redirect('app');
+		$user->redirect('app/');
 	
 	switch ($current_page) {
 		case 'questions':
@@ -26,13 +30,14 @@
 			$title = 'Managing questions';
 			include 'include/functions/pages/admin/questions.php';
 			break;
-		case 'redeem':
-			$page = 'redeem';
-			$title = $lang['redeem-codes'];
+		case 'categories':
+			$page = 'categories';
+			$title = 'Managing categories';
+			include 'include/functions/pages/admin/categories.php';
 			break;
 		default:
-			$page = 'news';
-			$title = $lang['news'];
-			include 'include/functions/news.php';
+			$page = 'Dashboard';
+			$title = 'Dashboard';
+			include 'include/functions/dashboard.php';
 		}
 ?>
