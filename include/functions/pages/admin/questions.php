@@ -3,7 +3,7 @@
 	{
 		if($_POST['search']=='')
 			$_POST['search']='*';
-		header("Location: ".$site_url."app/questions/1/".$_POST['search']."/".$_POST['search_category']."/".$_POST['search_date']);
+		header("Location: ".$site_url."app/questions/1/".$_POST['search']."/".$_POST['search_category']."/".$_POST['search_date']."/".$_POST['search_difficulty']);
 		die();
 	}
 	
@@ -12,6 +12,7 @@
 		$search[0] = strip_tags($_GET['search']);
 		$search[1] = strip_tags($_GET['category']);
 		$search[2] = strip_tags($_GET['date']);
+		$search[3] = strip_tags($_GET['level']);
 	}
 	
 	require_once("include/classes/all_questions.php");
@@ -44,7 +45,7 @@
 	}
 	$categories = $questions->getAllCategories();
 	
-	$difficulty = array('Easy', 'Normal', 'Hard');
+	$difficulty = array(1=>'Easy', 2=>'Normal', 3=>'Hard');
 	
 	$cat = array();
 	foreach($categories as $category)

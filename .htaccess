@@ -19,6 +19,8 @@ RewriteRule ^login login.php
 RewriteRule ^verify verify.php
 
 
+RewriteRule ^app/questions/(.*)/(.*)/(.*)/(.*)/(.*)/ app.php?p=questions&page_no=$1&search=$2&category=$3&date=$4&level=$5
+RewriteRule ^app/questions/(.*)/(.*)/(.*)/(.*)/(.*) app.php?p=questions&page_no=$1&search=$2&category=$3&date=$4&level=$5
 RewriteRule ^app/questions/(.*)/(.*)/(.*)/(.*)/ app.php?p=questions&page_no=$1&search=$2&category=$3&date=$4
 RewriteRule ^app/questions/(.*)/(.*)/(.*)/(.*) app.php?p=questions&page_no=$1&search=$2&category=$3&date=$4
 RewriteRule ^app/questions/(.*)/(.*)/(.*)/ app.php?p=questions&page_no=$1&search=$2&category=$3

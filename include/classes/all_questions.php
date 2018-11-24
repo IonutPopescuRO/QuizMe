@@ -116,7 +116,7 @@ class paginate
 						print "<script>top.location='".$self."'</script>";
 				}
 			}
-			$search = $search[0]."/".$search[1]."/".$search[2];
+			$search = $search[0]."/".$search[1]."/".$search[2]."/".$search[3];
 			if($current_page!=1)
 			{
 				$previous = $current_page-1;

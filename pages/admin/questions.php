@@ -126,7 +126,6 @@
 				<div class="jumbotron jumbotron-fluid" style="padding: 1rem 2rem;">
 					<form action="" method="POST">
 						<div class="row">
-							<div class="col-1"></div>
 							<div class="col-4">
 								<input type="text" name="search" class="form-control" placeholder="Question" value="<?php if(isset($search[0]) && $search[0]!='*') print $search[0]; ?>">
 							</div>
@@ -141,6 +140,14 @@
 										print '>'.$category['name'].'</option>';
 									}
 									?>
+								</select>
+							</div>
+							<div class="col-2">
+								<select class="form-control" name="search_difficulty">
+									<option value="0">All levels</option>
+									<option value="1"<?php if(isset($search[3]) && $search[3]==1) print ' selected'; ?>>Easy</option>
+									<option value="2"<?php if(isset($search[3]) && $search[3]==2) print ' selected'; ?>>Normal</option>
+									<option value="3"<?php if(isset($search[3]) && $search[3]==3) print ' selected'; ?>>Hard</option>
 								</select>
 							</div>
 							<div class="col-2">
@@ -173,23 +180,36 @@
 								
 								if(isset($search) && count($search))
 								{
+									$where=false;
 									if($search[0]!='*')
+									{
 										$query = "SELECT * FROM questions WHERE question LIKE :search";
+										$where = true;
+									}
 									else
 										$query = "SELECT * FROM questions";
 									if($search[1]>=0 && isset($cat[$search[1]]))
-										if($search[0]!='*')
+										if($where)
 											$query.=" AND category = ".$search[1];
 										else
+										{
 											$query.=" WHERE category = ".$search[1];
-									if($search[2]==1 || $search[2]==2)
+											$where = true;
+										}
+									if(($search[3]>0 && $search[3]<4))
 									{
-										$query.=" ORDER BY date ";
-										if($search[2]==1)
-											$query.="DESC";
+										if($where)
+											$query.=" AND difficulty = ".$search[3];
 										else
-											$query.="ASC";
+											$query.=" WHERE difficulty = ".$search[3];
 									}
+									$query.=" ORDER BY date ";
+
+									if($search[2]==2)
+										$query.="ASC";
+									else
+										$query.="DESC";
+
 									$newquery = $paginate->paging($query,$records_per_page);
 									$paginate->dataview($newquery, $search, $cat, $difficulty, 'Edit the question');
 								} else {
