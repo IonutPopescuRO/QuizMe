@@ -1,9 +1,11 @@
 <?php
 	require_once 'include/classes/user.php';
 	require_once 'include/classes/questions.php';
+	require_once 'include/classes/events.php';
 	
 	$user = new USER();
 	$questions = new QUESTIONS();
+	$events = new EVENTS();
 	
 	if(!$user->is_logged_in())
 		$user->redirect('login');
@@ -36,8 +38,8 @@
 			include 'include/functions/pages/admin/categories.php';
 			break;
 		default:
-			$page = 'Dashboard';
-			$title = 'Dashboard';
-			include 'include/functions/dashboard.php';
+			$page = 'home';
+			$title = 'Home';
+			include 'include/functions/pages/home.php';
 		}
 ?>

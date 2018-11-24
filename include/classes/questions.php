@@ -63,6 +63,10 @@ class QUESTIONS
 		$stmt = $this->conn->prepare('DELETE FROM categories WHERE id = ?');
 		$stmt->bindParam(1, $id, PDO::PARAM_INT);
 		$stmt->execute();
+		
+		$stmt = $this->conn->prepare('DELETE FROM questions WHERE category = ?');
+		$stmt->bindParam(1, $id, PDO::PARAM_INT);
+		$stmt->execute();
 	}
 	
 	public function removeQuestion($id)

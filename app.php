@@ -36,7 +36,7 @@ require_once 'include/functions/pages/app.php';
         <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
           <li class="nav-item">
             <a href="#" class="nav-link">Schedule
-              <span class="badge badge-primary ml-1">New</span>
+              <span class="badge badge-primary ml-1">0</span>
             </a>
           </li>
           <li class="nav-item active">
@@ -49,76 +49,20 @@ require_once 'include/functions/pages/app.php';
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <i class="mdi mdi-file-document-box"></i>
-              <span class="count">7</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-              <div class="dropdown-item">
-                <p class="mb-0 font-weight-normal float-left">You have 7 unread mails
-                </p>
-                <span class="badge badge-info badge-pill float-right">View all</span>
-              </div>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-medium text-dark">David Grey
-                    <span class="float-right font-weight-light small-text">1 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text">
-                    The meeting is cancelled
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-medium text-dark">Tim Cook
-                    <span class="float-right font-weight-light small-text">15 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text">
-                    New product launch
-                  </p>
-                </div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-medium text-dark"> Johnson
-                    <span class="float-right font-weight-light small-text">18 Minutes ago</span>
-                  </h6>
-                  <p class="font-weight-light small-text">
-                    Upcoming board meeting
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <span class="profile-text">Hello, <?php print $user_rows['userName']; ?>!</span>
               <img class="img-xs rounded-circle" src="https://www.gravatar.com/avatar/<?php print $gravatar; ?>" alt="<?php print $user_rows['userName']; ?>">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-              <a class="dropdown-item mt-2">
-                Manage Accounts
+              <a href="app/account" class="dropdown-item mt-2">
+                Account Settings
               </a>
-              <a class="dropdown-item">
-                Change Password
+			  <?php if($user_rows['admin']) { ?>
+              <a href="app/admins" class="dropdown-item">
+                Manage Administrators
               </a>
-              <a class="dropdown-item">
-                Check Inbox
-              </a>
+			  <?php } ?>
               <a href="app?logout" class="dropdown-item">
                 Sign Out
               </a>
@@ -149,13 +93,21 @@ require_once 'include/functions/pages/app.php';
                   </div>
                 </div>
               </div>
-              <button class="btn btn-success btn-block">New Project
+			  <?php if($user_rows['admin']) { ?>
+              <a href="app/events" class="btn btn-success btn-block">New Event
                 <i class="mdi mdi-plus"></i>
-              </button>
+              </a>
+			  <?php } ?>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="app/">
+              <i class="menu-icon mdi mdi-home"></i>
+              <span class="menu-title">Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="app/dashboard">
               <i class="menu-icon mdi mdi-television"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -246,7 +198,7 @@ require_once 'include/functions/pages/app.php';
 						include 'pages/admin/categories.php';
 						break;
 					default:
-						include 'include/functions/dashboard.php';
+						include 'pages/home.php';
 				}
 			?>
         </div>
