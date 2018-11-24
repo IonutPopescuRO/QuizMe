@@ -1,4 +1,22 @@
 <?php
+	if(isset($_POST['search']) && isset($_POST['search_category']) && isset($_POST['search_date']))
+	{
+		if($_POST['search']=='')
+			$_POST['search']='*';
+		header("Location: ".$site_url."app/questions/1/".$_POST['search']."/".$_POST['search_category']."/".$_POST['search_date']);
+		die();
+	}
+	
+	if(isset($_GET['search']))
+	{
+		$search[0] = strip_tags($_GET['search']);
+		$search[1] = strip_tags($_GET['category']);
+		$search[2] = strip_tags($_GET['date']);
+	}
+	
+	require_once("include/classes/all_questions.php");
+	$paginate = new paginate();
+	
 	$info = 0;
 	if(isset($_POST['question']))
 	{
@@ -25,4 +43,10 @@
 		$info = 1;
 	}
 	$categories = $questions->getAllCategories();
+	
+	$difficulty = array('Easy', 'Normal', 'Hard');
+	
+	$cat = array();
+	foreach($categories as $category)
+		$cat[$category['id']]=$category['name'];
 ?>

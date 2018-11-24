@@ -121,166 +121,94 @@
 
 					</div>
 				</div>
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    First name
-                                </th>
-                                <th>
-                                    Progress
-                                </th>
-                                <th>
-                                    Amount
-                                </th>
-                                <th>
-                                    Sales
-                                </th>
-                                <th>
-                                    Deadline
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="font-weight-medium">
-                                    1
-                                </td>
-                                <td>
-                                    Herman Beck
-                                </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    $ 77.99
-                                </td>
-                                <td class="text-danger"> 53.64%
-                                    <i class="mdi mdi-arrow-down"></i>
-                                </td>
-                                <td>
-                                    May 15, 2015
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-medium">
-                                    2
-                                </td>
-                                <td>
-                                    Messsy Adam
-                                </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    $245.30
-                                </td>
-                                <td class="text-success"> 24.56%
-                                    <i class="mdi mdi-arrow-up"></i>
-                                </td>
-                                <td>
-                                    July 1, 2015
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-medium">
-                                    3
-                                </td>
-                                <td>
-                                    John Richards
-                                </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    $138.00
-                                </td>
-                                <td class="text-danger"> 28.76%
-                                    <i class="mdi mdi-arrow-down"></i>
-                                </td>
-                                <td>
-                                    Apr 12, 2015
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-medium">
-                                    4
-                                </td>
-                                <td>
-                                    Peter Meggik
-                                </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    $ 77.99
-                                </td>
-                                <td class="text-danger"> 53.45%
-                                    <i class="mdi mdi-arrow-down"></i>
-                                </td>
-                                <td>
-                                    May 15, 2015
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-medium">
-                                    5
-                                </td>
-                                <td>
-                                    Edward
-                                </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    $ 160.25
-                                </td>
-                                <td class="text-success"> 18.32%
-                                    <i class="mdi mdi-arrow-up"></i>
-                                </td>
-                                <td>
-                                    May 03, 2015
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-medium">
-                                    6
-                                </td>
-                                <td>
-                                    Henry Tom
-                                </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
-                                <td>
-                                    $ 150.00
-                                </td>
-                                <td class="text-danger"> 24.67%
-                                    <i class="mdi mdi-arrow-down"></i>
-                                </td>
-                                <td>
-                                    June 16, 2015
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+				
+
+				<div class="jumbotron jumbotron-fluid" style="padding: 1rem 2rem;">
+					<form action="" method="POST">
+						<div class="row">
+							<div class="col-1"></div>
+							<div class="col-4">
+								<input type="text" name="search" class="form-control" placeholder="Question" value="<?php if(isset($search[0]) && $search[0]!='*') print $search[0]; ?>">
+							</div>
+							<div class="col-2">
+								<select class="form-control" name="search_category">
+									<option value="-1" selected>All categories</option>
+									<?php foreach($categories as $category)
+									{
+										print '<option value="'.$category['id'].'"';
+										if(isset($search[1]) && $search[1]==$category['id'])
+											print ' selected';
+										print '>'.$category['name'].'</option>';
+									}
+									?>
+								</select>
+							</div>
+							<div class="col-2">
+								<select class="form-control" name="search_date">
+									<option value="0">All categories</option>
+									<option value="1"<?php if(isset($search[2]) && $search[2]==1) print ' selected'; ?>>DESC</option>
+									<option value="2"<?php if(isset($search[2]) && $search[2]==1) print ' selected'; ?>>ASC</option>
+								</select>
+							</div>
+							<div class="col-2">
+								<button type="submit" class="btn btn-primary"><i class="fa fa-search fa-1" aria-hidden="true"></i> Search</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead class="thead-inverse">
+							<tr>
+								<th>#</th>
+								<th>Question</th>
+								<th>Category</th>
+								<th>Difficulty level</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+								$records_per_page=10;
+								
+								if(isset($search) && count($search))
+								{
+									if($search[0]!='*')
+										$query = "SELECT * FROM questions WHERE question LIKE :search";
+									else
+										$query = "SELECT * FROM questions";
+									if($search[1]>=0 && isset($cat[$search[1]]))
+										if($search[0]!='*')
+											$query.=" AND category = ".$search[1];
+										else
+											$query.=" WHERE category = ".$search[1];
+									if($search[2]==1 || $search[2]==2)
+									{
+										$query.=" ORDER BY date ";
+										if($search[2]==1)
+											$query.="DESC";
+										else
+											$query.="ASC";
+									}
+									$newquery = $paginate->paging($query,$records_per_page);
+									$paginate->dataview($newquery, $search, $cat, $difficulty, 'Edit the question');
+								} else {
+									$query = "SELECT * FROM questions ORDER BY date DESC";
+									$newquery = $paginate->paging($query,$records_per_page);
+									$paginate->dataview($newquery, null, $cat, $difficulty, 'Edit the question');
+								}
+							?>
+						</tbody>
+					</table>
+				</div>
+				<p>
+					<?php
+						if(isset($search))
+							$paginate->paginglink($query,$records_per_page,'First page','Last page',$site_url,$search);
+						else
+							$paginate->paginglink($query,$records_per_page,'First page','Last page',$site_url);
+					?>
+				</p>
             </div>
         </div>
     </div>
