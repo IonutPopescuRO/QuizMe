@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule ^register/ register.php
+RewriteRule ^register register.php
+
+RewriteRule ^forgot/ fpass.php
+RewriteRule ^forgot fpass.php
+
+RewriteRule ^resetpass/ resetpass.php
+RewriteRule ^resetpass resetpass.php
+
+RewriteRule ^login/ login.php
+RewriteRule ^login login.php
+
+RewriteRule ^verify verify.php
+
+RewriteRule ^app/(.*)/ app.php?p=$1
+RewriteRule ^app/(.*) app.php?p=$1
+RewriteRule ^app/ app.php
+RewriteRule ^app app.php
+
+RewriteRule ^users/logout ./index.php?p=logout
+RewriteRule ^users/lost/(.*)/(.*)/ ./index.php?p=lost&email=$1&code=$2
+RewriteRule ^users/lost/(.*)/(.*) ./index.php?p=lost&email=$1&code=$2
+RewriteRule ^users/lost ./index.php?p=lost
