@@ -18,13 +18,15 @@
 				<div class="collapse" id="questions">
 					<div class="card card-body">
 
-
-						<input type="file" class="dropify" id="files" data-allowed-file-extensions="csv" />
-
-  <table id="contents" style="width:100%; height:400px;" border>
-  </table>
-  
-							<hr>
+						<form action="" method="post" enctype="multipart/form-data" required>
+							<div class="form-group">
+								<input type="file" class="dropify" name="csv_file" id="files" data-allowed-file-extensions="csv" />
+							</div>
+							<div class="form-group">
+								<button class="add_form_field file-upload-browse btn btn-info" type="submit" name="upload">Add questions</button>
+							</div>
+						</form>
+						<hr>
 						<form action="" method="post">
 							<div class="form-group"><br>
 								<div class="questions_container">

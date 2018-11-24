@@ -4,6 +4,8 @@ RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
 
+RewriteRule ^register/(.*)/ register.php?code=$1
+RewriteRule ^register/(.*) register.php?code=$1
 RewriteRule ^register/ register.php
 RewriteRule ^register register.php
 
@@ -13,6 +15,8 @@ RewriteRule ^forgot fpass.php
 RewriteRule ^resetpass/ resetpass.php
 RewriteRule ^resetpass resetpass.php
 
+RewriteRule ^login/(.*)/ login.php?code=$1
+RewriteRule ^login/(.*) login.php?code=$1
 RewriteRule ^login/ login.php
 RewriteRule ^login login.php
 

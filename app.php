@@ -270,64 +270,11 @@ require_once 'include/functions/pages/app.php';
   <script src="js/misc.js"></script>
   <script src="js/dashboard.js"></script>
   <?php if($current_page=='questions') { ?>
-  <script src="js/jquery.csv.js"></script>
   <script>
 	(function($) {
 	  'use strict';
 	  $('.dropify').dropify();
 	})(jQuery);
-	
-    $(document).ready(function() {
-      if(isAPIAvailable()) {
-        $('#files').bind('change', handleFileSelect);
-      }
-    });
-
-    function isAPIAvailable() {
-      if (window.File && window.FileReader && window.FileList && window.Blob) {
-        return true;
-      } else {
-        document.writeln('The HTML5 APIs used in this form are only available in the following browsers:<br />');
-        document.writeln(' - Google Chrome: 13.0 or later<br />');
-        document.writeln(' - Mozilla Firefox: 6.0 or later<br />');
-        document.writeln(' - Internet Explorer: Not supported (partial support expected in 10.0)<br />');
-        document.writeln(' - Safari: Not supported<br />');
-        document.writeln(' - Opera: Not supported');
-        return false;
-      }
-    }
-
-    function handleFileSelect(evt) {
-      var files = evt.target.files;
-      var file = files[0];
-      var output = ''
-          output += '<span style="font-weight:bold;">' + escape(file.name) + '</span><br />\n';
-          output += ' - FileType: ' + (file.type || 'n/a') + '<br />\n';
-          output += ' - FileSize: ' + file.size + ' bytes<br />\n';
-          output += ' - LastModified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '<br />\n';
-
-      printTable(file);
-      $('#list').append(output);
-    }
-
-    function printTable(file) {
-      var reader = new FileReader();
-      reader.readAsText(file);
-      reader.onload = function(event){
-        var csv = event.target.result;
-        var data = $.csv.toArrays(csv);
-        var html = '';
-        for(var row in data) {
-          html += '<tr>\r\n';
-          for(var item in data[row]) {
-            html += '<td>' + data[row][item] + '</td>\r\n';
-          }
-          html += '</tr>\r\n';
-        }
-        $('#contents').html(html);
-      };
-      reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
-    }
   </script>
 	<script type="text/javascript">
 		function answerType(that) {

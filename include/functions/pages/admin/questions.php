@@ -49,6 +49,17 @@
 		$questions->addQuestion($_POST['question'], $_POST['category'], $_POST['answer_type'], $time, $_POST['difficulty'], $answer, $check);
 		$info = 1;
 	}
+	if(isset($_POST['upload']))
+	{
+		$rows = array_map(function($v){return str_getcsv($v, ";");}, file($_FILES['csv_file']['tmp_name']));
+		$header = array_shift($rows);
+		$csv = [];
+		foreach($rows as $row)
+			$csv[] = array_combine($header, $row);
+		print_r($rows);
+		die();
+	}
+	
 	$categories = $questions->getAllCategories();
 	
 	$difficulty = array(1=>'Easy', 2=>'Normal', 3=>'Hard');
