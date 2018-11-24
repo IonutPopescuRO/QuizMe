@@ -15,6 +15,12 @@
 		$search[3] = strip_tags($_GET['level']);
 	}
 	
+	if(isset($_GET['delete']))
+	{
+		$questions->removeQuestion($_GET['delete']);
+		$user->redirect('app/questions');
+	}
+	
 	require_once("include/classes/all_questions.php");
 	$paginate = new paginate();
 	

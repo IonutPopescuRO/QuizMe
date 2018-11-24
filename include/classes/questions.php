@@ -64,4 +64,11 @@ class QUESTIONS
 		$stmt->bindParam(1, $id, PDO::PARAM_INT);
 		$stmt->execute();
 	}
+	
+	public function removeQuestion($id)
+	{
+		$stmt = $this->conn->prepare('DELETE FROM questions WHERE id = ?');
+		$stmt->bindParam(1, $id, PDO::PARAM_INT);
+		$stmt->execute();
+	}
 }
