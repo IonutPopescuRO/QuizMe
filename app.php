@@ -284,43 +284,29 @@ require_once 'include/functions/pages/app.php';
     });
 
     function isAPIAvailable() {
-      // Check for the various File API support.
       if (window.File && window.FileReader && window.FileList && window.Blob) {
-        // Great success! All the File APIs are supported.
         return true;
       } else {
-        // source: File API availability - http://caniuse.com/#feat=fileapi
-        // source: <output> availability - http://html5doctor.com/the-output-element/
         document.writeln('The HTML5 APIs used in this form are only available in the following browsers:<br />');
-        // 6.0 File API & 13.0 <output>
         document.writeln(' - Google Chrome: 13.0 or later<br />');
-        // 3.6 File API & 6.0 <output>
         document.writeln(' - Mozilla Firefox: 6.0 or later<br />');
-        // 10.0 File API & 10.0 <output>
         document.writeln(' - Internet Explorer: Not supported (partial support expected in 10.0)<br />');
-        // ? File API & 5.1 <output>
         document.writeln(' - Safari: Not supported<br />');
-        // ? File API & 9.2 <output>
         document.writeln(' - Opera: Not supported');
         return false;
       }
     }
 
     function handleFileSelect(evt) {
-      var files = evt.target.files; // FileList object
+      var files = evt.target.files;
       var file = files[0];
-
-      // read the file metadata
       var output = ''
           output += '<span style="font-weight:bold;">' + escape(file.name) + '</span><br />\n';
           output += ' - FileType: ' + (file.type || 'n/a') + '<br />\n';
           output += ' - FileSize: ' + file.size + ' bytes<br />\n';
           output += ' - LastModified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '<br />\n';
 
-      // read the file contents
       printTable(file);
-
-      // post the results
       $('#list').append(output);
     }
 
@@ -344,35 +330,21 @@ require_once 'include/functions/pages/app.php';
     }
   </script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			var wrapper         = $(".questions_container");
-			var add_button      = $(".add_form_field");
-		 
-			$(add_button).click(function(e){
-				e.preventDefault();
-
-					$(wrapper).append('<hr><div class="row"><div class="col-lg-2"><label for="months">Timp</label><input class="form-control" type="number" value="0" name="time_new[]" min="0" required></div><div class="col-lg-2"><label for="months">Tip timp</label><select class="form-control" name="time_new_type[]"><option value="1" selected>Minute</option><option value="2">Ore</option><option value="3">Zile</option></select></div><div class="col-lg-2"><label for="months">Preț</label><input class="form-control" type="number" value="0" name="time_new_price[]" min="0" required></div><div class="col-lg-2" style="margin-top: 40px;"><a href="#" class="delete">Șterge</a></div></div>'); //add input box
-
-			});
-		 
-			$(wrapper).on("click",".delete", function(e){
-				e.preventDefault(); $(this).parent('div').parent('div').remove();
-			})
-		});
-		
 		function answerType(that) {
-			//that.find("div#test").css('display': 'block');
-			alert(that.find("#test").val);
+			document.getElementById("one_answer").style.display = "none";
+			document.getElementById("many_answer").style.display = "none";
+			document.getElementById("free_answer").style.display = "none";
+			document.getElementById("radio_check").required = false;
 			
-			
-			/*
-			alert(parent.id);
-			if (that.value == "other") {
-				alert("check");
-				document.getElementById("ifYes").style.display = "block";
-			} else {
-				document.getElementById("ifYes").style.display = "none";
-			}*/
+			if (that.value == 0)
+			{
+				document.getElementById("one_answer").style.display = "block";
+				document.getElementById("radio_check").required = true;
+			}
+			else if (that.value == 1)
+				document.getElementById("many_answer").style.display = "block";
+			else
+				document.getElementById("free_answer").style.display = "block";
 		}
 	</script>
   <?php } ?>

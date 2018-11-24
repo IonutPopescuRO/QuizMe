@@ -3,6 +3,13 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Questions</h4>
+				<?php if($info==1) print '<div class="alert alert-success alert-dismissible" role="alert">
+											  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											  </button>
+											  The question has been added.
+											</div>'; 
+				?>
 				<p>
 					<a class="btn btn-primary" data-toggle="collapse" href="#questions" role="button" aria-expanded="false" aria-controls="questions">
 						Add questions<i class="mdi mdi-plus"></i>
@@ -17,111 +24,88 @@
   <table id="contents" style="width:100%; height:400px;" border>
   </table>
   
-							<div class="form-group"></br>
+							<hr>
+						<form action="" method="post">
+							<div class="form-group"><br>
 								<div class="questions_container">
 									<div>
 										<div class="form-group">
 											<label for="months">Question</label>
-											<textarea class="form-control" name="questions[]" rows="4" required></textarea>
+											<textarea class="form-control" name="question" rows="4" required></textarea>
 										</div>
 										<div class="form-group">
+											<label for="months">Category</label>
+											<select class="form-control" name="category">
+												<?php foreach($categories as $category) print '<option value="'.$category['id'].'">'.$category['name'].'</option>'; ?>
+											</select>
+										</div>
+										
+										<div class="form-group">
+											<a class="btn btn-primary" role="button" data-toggle="collapse" href="#time" aria-expanded="false" aria-controls="time">
+												Answer question time
+											</a>
+											<div class="collapse" id="time">
+												<div class="form-group"><br>
+													<div class="row">
+														<div class="col-lg-3">
+															<label for="reason">Minutes</label>
+															<input class="form-control" type="number" value="0" id="time_minutes" name="time_minutes" min="0" required>
+														</div>
+														<div class="col-lg-3">
+															<label for="hours">Seconds</label>
+															<input class="form-control" type="number" value="0" id="time_seconds" name="time_seconds" min="0" required>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+					
+										<div class="form-group">
 											<label for="months">Answer type</label>
-											<select class="form-control" name="answer_type[]" onchange="answerType($(this).parent().parent());">
-												<option value="1" selected>One answer</option>
-												<option value="2">Many answers</option>
-												<option value="3">Free text answer</option>
+											<select class="form-control" name="answer_type" onchange="answerType(this);">
+												<option value="0">One answer</option>
+												<option value="1" selected>Many answers</option>
+												<option value="2">Free text answer</option>
 											</select>
 										</div>
 										
 										<div class="form-group" id="many_answer">
 											<label for="months">Answer</label>
+											<?php for($i=0;$i<4;$i++) { ?>
 											<div class="form-group">
 												<div class="row">
 													<div class="col-1"></div>
 													<div class="col-1">
-														<input type="checkbox" class="form-check-input" name="answer_many_check[]">
+														<input type="checkbox" class="form-check-input" name="answer_many_check_<?php print $i; ?>">
 													</div>
-													<div class="col-10"><input class="form-control" type="text" name="answer_many[]"></div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_many_<?php print $i; ?>"></div>
 												</div>
 											</div>
-											<div class="form-group">
-												<div class="row">
-													<div class="col-1"></div>
-													<div class="col-1">
-														<input type="checkbox" class="form-check-input" name="answer_many_check[]">
-													</div>
-													<div class="col-10"><input class="form-control" type="text" name="answer_many[]"></div>
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="row">
-													<div class="col-1"></div>
-													<div class="col-1">
-														<input type="checkbox" class="form-check-input" name="answer_many_check[]">
-													</div>
-													<div class="col-10"><input class="form-control" type="text" name="answer_many[]"></div>
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="row">
-													<div class="col-1"></div>
-													<div class="col-1">
-														<input type="checkbox" class="form-check-input" name="answer_many_check[]">
-													</div>
-													<div class="col-10"><input class="form-control" type="text" name="answer_many[]"></div>
-												</div>
-											</div>
+											<?php } ?>
 										</div>
 										
-										<div class="form-group" id="one_answer">
+										<div class="form-group" id="one_answer" style="display: none;">
 											<label for="months">Answer</label>
+											<?php for($i=0;$i<4;$i++) { ?>
 											<div class="form-group">
 												<div class="row">
 													<div class="col-1"></div>
 													<div class="col-1">
-														<input type="radio" class="form-check-input" name="answer_one_check[]" value="0">
+														<input type="radio" class="form-check-input" name="answer_one_check" value="<?php print $i; ?>" id="radio_check">
 													</div>
-													<div class="col-10"><input class="form-control" type="text" name="answer_one[]"></div>
+													<div class="col-10"><input class="form-control" type="text" name="answer_one_<?php print $i; ?>"></div>
 												</div>
 											</div>
-											<div class="form-group">
-												<div class="row">
-													<div class="col-1"></div>
-													<div class="col-1">
-														<input type="radio" class="form-check-input" name="answer_one_check[]" value="1">
-													</div>
-													<div class="col-10"><input class="form-control" type="text" name="answer_one[]"></div>
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="row">
-													<div class="col-1"></div>
-													<div class="col-1">
-														<input type="radio" class="form-check-input" name="answer_one_check[]" value="2">
-													</div>
-													<div class="col-10"><input class="form-control" type="text" name="answer_one[]"></div>
-												</div>
-											</div>
-											<div class="form-group">
-												<div class="row">
-													<div class="col-1"></div>
-													<div class="col-1">
-														<input type="radio" class="form-check-input" name="answer_one_check[]" value="3">
-													</div>
-													<div class="col-10"><input class="form-control" type="text" name="answer_one[]"></div>
-												</div>
-											</div>
+											<?php } ?>
 										</div>
-										<div class="form-group" id="free_answer">
+										<div class="form-group" id="free_answer" style="display: none;">
 											<label for="months">Answer</label>
-											<textarea class="form-control" name="free_answer[]" rows="2" required></textarea>
+											<textarea class="form-control" name="free_answer" rows="2"></textarea>
 										</div>
-										
-										<div id="test" style="display: none;">salut</div>
 										
 										<div class="form-group">
 											<label for="months">Difficulty level</label>
-											<select class="form-control" name="question_type[]">
+											<select class="form-control" name="difficulty">
 												<option value="1">Easy</option>
 												<option value="2" selected>Normal</option>
 												<option value="3">Hard</option>
@@ -129,9 +113,9 @@
 										</div>
 									</div>
 								</div>
-								<button class="add_form_field file-upload-browse btn btn-info pull-right" type="button">+</button>
+								<button class="add_form_field file-upload-browse btn btn-info" type="submit">Add question</button>
 							</div>
-
+						</form>
 
 					</div>
 
