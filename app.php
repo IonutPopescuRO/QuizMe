@@ -17,6 +17,7 @@ require_once 'include/functions/pages/app.php';
   <link rel="stylesheet" href="vendor/iconfonts/font-awesome/css/font-awesome.min.css" />
   
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 
   <link rel="shortcut icon" href="images/favicon.ico?v=" />
 </head>
@@ -197,6 +198,9 @@ require_once 'include/functions/pages/app.php';
 					case 'categories':
 						include 'pages/admin/categories.php';
 						break;
+					case 'events':
+						include 'pages/admin/events.php';
+						break;
 					default:
 						include 'pages/home.php';
 				}
@@ -222,13 +226,12 @@ require_once 'include/functions/pages/app.php';
   <script src="js/misc.js"></script>
   <script src="js/dashboard.js"></script>
   <?php if($current_page=='questions') { ?>
-  <script>
-	(function($) {
-	  'use strict';
-	  $('.dropify').dropify();
-	})(jQuery);
-  </script>
-	<script type="text/javascript">
+	<script>
+		(function($) {
+			'use strict';
+			$('.dropify').dropify();
+		})(jQuery);
+		
 		function answerType(that) {
 			document.getElementById("one_answer").style.display = "none";
 			document.getElementById("many_answer").style.display = "none";
@@ -246,6 +249,21 @@ require_once 'include/functions/pages/app.php';
 				document.getElementById("free_answer").style.display = "block";
 		}
 	</script>
+  <?php } else if($current_page=='events') { ?>
+	<script src="js/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript">
+		$(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
+		
+		function questions(that) {
+			document.getElementById("auto").style.display = "none";
+			document.getElementById("manual").style.display = "none";
+			
+			if (that.value == 0)
+				document.getElementById("auto").style.display = "block";
+			else
+				document.getElementById("manual").style.display = "block";
+		}
+	</script>            
   <?php } ?>
 </body>
 

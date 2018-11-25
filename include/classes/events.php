@@ -54,7 +54,7 @@ class EVENTS
 		$stmt->execute();
 		$result=$stmt->fetch(PDO::FETCH_ASSOC);
 		return $result['position'];
-	}	
+	}
 	
 	public function getEventRow($id, $row)
 	{
@@ -64,5 +64,25 @@ class EVENTS
 		$result=$stmt->fetch(PDO::FETCH_ASSOC);
 		
 		return $result[$row];
+	}
+	
+	public function addEvent($name, $expire, $score, $questions)
+	{
+		$stmt = $this->conn->prepare("INSERT INTO events (name, expire, score) VALUES (:name, :expire, :score)");
+		$stmt->execute(array(':name'=>$name,':expire'=>$expire,':score'=>$score));
+		$lastId = $this->conn->lastInsertId();
+		
+		foreach($questions as $q)
+		{
+			$stmt = $this->conn->prepare("INSERT INTO events_questions (event, question) VALUES (:event, :question)");
+			$stmt->execute(array(':event'=>$lastId,':question'=>$q));
+		}
+	}
+	
+	public function removeEvents($id)
+	{
+		$stmt = $this->conn->prepare('DELETE FROM events WHERE id = ?');
+		$stmt->bindParam(1, $id, PDO::PARAM_INT);
+		$stmt->execute();
 	}
 }

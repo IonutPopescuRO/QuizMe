@@ -61,7 +61,7 @@
                                     #<?php print $events->getUserRank($event['id']); ?>
                                 </td>
                                 <td>
-                                    <?php print $event['completed']; ?>
+                                    <?php if($event['completed']) print $event['completed']; else print '-'; ?>
                                 </td>
                             </tr>
 							<?php } ?>

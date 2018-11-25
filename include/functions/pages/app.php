@@ -37,6 +37,11 @@
 			$title = 'Managing categories';
 			include 'include/functions/pages/admin/categories.php';
 			break;
+		case 'events':
+			$page = 'events';
+			$title = 'Managing events';
+			include 'include/functions/pages/admin/events.php';
+			break;
 		default:
 			$page = 'home';
 			$title = 'Home';

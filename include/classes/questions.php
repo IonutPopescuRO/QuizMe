@@ -75,4 +75,62 @@ class QUESTIONS
 		$stmt->bindParam(1, $id, PDO::PARAM_INT);
 		$stmt->execute();
 	}
+	
+	public function countAllQuestions()
+	{
+		$categories = $this->getAllCategories();
+		$all_questions = array();
+		//1-easy 2-normal 3-hard
+		foreach($categories as $category)
+		{
+			$easy=$normal=$hard=0;
+			$stmt = $this->conn->prepare("SELECT count(*) FROM questions WHERE category = ? AND difficulty = 1");
+			$stmt->bindParam(1, $category['id'], PDO::PARAM_INT);
+			$stmt->execute(); 
+			$easy = $stmt->fetchColumn();
+			
+			$stmt = $this->conn->prepare("SELECT count(*) FROM questions WHERE category = ? AND difficulty = 2");
+			$stmt->bindParam(1, $category['id'], PDO::PARAM_INT);
+			$stmt->execute(); 
+			$normal = $stmt->fetchColumn();
+			
+			$stmt = $this->conn->prepare("SELECT count(*) FROM questions WHERE category = ? AND difficulty = 3");
+			$stmt->bindParam(1, $category['id'], PDO::PARAM_INT);
+			$stmt->execute(); 
+			$hard = $stmt->fetchColumn();
+			
+			if($easy>0)
+				$all_questions[]=array(
+					'id'=>$category['id'],
+					'type'=>1,
+					'count'=>$easy
+				);
+			if($normal>0)
+				$all_questions[]=array(
+					'id'=>$category['id'],
+					'type'=>2,
+					'count'=>$normal
+				);
+			if($hard>0)
+				$all_questions[]=array(
+					'id'=>$category['id'],
+					'type'=>3,
+					'count'=>$hard
+				);
+		}
+
+		return $all_questions;
+	}
+	
+	public function getRandomQuestions($category, $difficulty, $limit)
+	{
+		$stmt = $this->conn->prepare("SELECT id FROM questions WHERE category = :category AND difficulty=:difficulty ORDER BY RAND() LIMIT :limit");
+		$stmt->bindParam(':category', $category, PDO::PARAM_INT);
+		$stmt->bindParam(':difficulty', $difficulty, PDO::PARAM_INT);
+		$stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+		$stmt->execute();
+		$result=$stmt->fetchAll();
+		
+		return $result;
+	}
 }
