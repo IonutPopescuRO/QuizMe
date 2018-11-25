@@ -310,4 +310,10 @@ class USER
 		$stmt = $this->conn->prepare("INSERT INTO events_users(user, event, questions) VALUES (:user, :event, :questions)");
 		$stmt->execute(array(':user'=>$user, ':event'=>$event, ':questions'=>$questions));
 	}
+	
+	function removeEvent()
+	{
+		$stmt = $this->conn->prepare("UPDATE tbl_users SET current_event=-1 WHERE userID=:id");
+		$stmt->execute(array(':id'=>$_SESSION['userSession']));
+	}
 }

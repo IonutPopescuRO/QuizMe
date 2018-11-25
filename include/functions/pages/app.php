@@ -6,17 +6,6 @@
 	$user = new USER();
 	$questions = new QUESTIONS();
 	$events = new EVENTS();
-
-	$code = isset($_GET['code']) ? $_GET['code'] : null;
-
-	if($code)
-		$qr_code = $user->checkForCode($code);
-
-	if($code && isset($qr_code) && is_array($qr_code) && count($qr_code) && $qr_code['used']==0)
-	{
-		$user->setEvent($qr_code['id'], $qr_code['event'], $_SESSION['userSession']);
-		$user->redirect('app/quiz');
-	}
 	
 	if(!$user->is_logged_in())
 		$user->redirect('login');
@@ -30,6 +19,17 @@
 	
 	$user_rows = $user->getUserAllRow();
 	$gravatar = md5(strtolower(trim($user_rows['userEmail'])));
+	
+	$code = isset($_GET['code']) ? $_GET['code'] : null;
+
+	if($user_rows['current_event']==-1 && $code)
+		$qr_code = $user->checkForCode($code);
+
+	if($user_rows['current_event']==-1 && $code && isset($qr_code) && is_array($qr_code) && count($qr_code) && $qr_code['used']==0)
+	{
+		$user->setEvent($qr_code['id'], $qr_code['event'], $_SESSION['userSession']);
+		$user->redirect('app/quiz');
+	}
 	
 	$current_page = isset($_GET['p']) ? $_GET['p'] : null;
 	

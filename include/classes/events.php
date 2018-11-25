@@ -114,9 +114,13 @@ class EVENTS
 		return $result;
 	}
 	
-	public function updateScore($event, $score, $status=0)
+	public function updateScore($event, $score, $status=0, $time=0)
 	{
-		$stmt = $this->conn->prepare("UPDATE events_users SET status=status+:status, score=:score WHERE event=:event AND user = :user");
-		$stmt->execute(array(':score'=>$score, ':event'=>$event, ':status'=>$status, ':user'=>$_SESSION['userSession']));
+		$expire=0;
+		if($time)
+			$expire = date('Y-m-d G:i', strtotime('now +'.$time.' second + 2 hours'));
+
+		$stmt = $this->conn->prepare("UPDATE events_users SET status=status+:status, score=:score, expire_time=:expire_time WHERE event=:event AND user = :user");
+		$stmt->execute(array(':score'=>$score, ':event'=>$event, ':status'=>$status, ':user'=>$_SESSION['userSession'], ':expire_time'=>$expire));
 	}
 }

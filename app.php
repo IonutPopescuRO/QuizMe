@@ -36,17 +36,12 @@ require_once 'include/functions/pages/app.php';
       <div class="navbar-menu-wrapper d-flex align-items-center">
         <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
           <li class="nav-item">
-            <a href="#" class="nav-link">Schedule
-              <span class="badge badge-primary ml-1">0</span>
+            <a href="app/" class="nav-link">Home
             </a>
           </li>
-          <li class="nav-item active">
-            <a href="#" class="nav-link">
-              <i class="mdi mdi-elevation-rise"></i>Reports</a>
-          </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
+            <a href="app/quiz" class="nav-link">
+              <i class="mdi mdi-bookmark-plus-outline"></i>Quiz</a>
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
@@ -234,7 +229,42 @@ require_once 'include/functions/pages/app.php';
 			else
 				document.getElementById("manual").style.display = "block";
 		}
-	</script>            
+	</script>
+  <?php } else if($current_page=='quiz' && $question_info['time']) { ?>
+	<script>
+		var end = new Date('<?php print date ("m/d/Y H:i:s", strtotime($ev['expire_time'])); ?>');
+
+		var _second = 1000;
+		var _minute = _second * 60;
+		var _hour = _minute * 60;
+		var _day = _hour * 24;
+		var timer;
+
+		function showRemaining() {
+			var now = new Date();
+			var distance = end - now;
+
+			if (distance < 0) {
+
+				clearInterval(timer);
+				document.getElementById('countdown').innerHTML = 'EXPIRED!';
+				document.getElementById('answer').submit();
+				return;
+			}
+			var days = Math.floor(distance / _day);
+			var hours = Math.floor((distance % _day) / _hour);
+			var minutes = Math.floor((distance % _hour) / _minute);
+			var seconds = Math.floor((distance % _minute) / _second);
+
+			document.getElementById('countdown').innerHTML = minutes + ' mins ';
+			document.getElementById('countdown').innerHTML += seconds + ' secs';
+			
+			if(minutes==0 && seconds==0)
+				document.getElementById('answer').submit();
+		}
+
+		timer = setInterval(showRemaining, 1000);
+	</script>
   <?php } ?>
 </body>
 
