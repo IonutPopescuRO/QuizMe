@@ -324,4 +324,44 @@ class USER
 		$stmt = $this->conn->prepare("UPDATE tbl_users SET current_event=-1 WHERE userID=:id");
 		$stmt->execute(array(':id'=>$_SESSION['userSession']));
 	}
+	
+	function qrCodesCount()
+	{
+		$stmt = $stmt = $this->conn->prepare("SELECT count(*) FROM qrcodes WHERE used = 1");
+		$stmt->execute(); 
+		$used = $stmt->fetchColumn(); 
+
+		$stmt = $stmt = $this->conn->prepare("SELECT count(*) FROM qrcodes");
+		$stmt->execute(); 
+		$count = $stmt->fetchColumn(); 
+
+		return $used.' / '.$count;
+	}
+	
+	function quizzesCount()
+	{
+		$stmt = $stmt = $this->conn->prepare("SELECT count(*) FROM events");
+		$stmt->execute(); 
+		$used = $stmt->fetchColumn();
+
+		return $used;
+	}
+	
+	function answersCount()
+	{
+		$stmt = $stmt = $this->conn->prepare("SELECT count(*) FROM answers");
+		$stmt->execute(); 
+		$used = $stmt->fetchColumn();
+
+		return $used;
+	}
+	
+	function usersCount()
+	{
+		$stmt = $stmt = $this->conn->prepare("SELECT count(*) FROM tbl_users");
+		$stmt->execute(); 
+		$used = $stmt->fetchColumn();
+
+		return $used;
+	}
 }

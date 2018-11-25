@@ -33,7 +33,7 @@
 	
 	$current_page = isset($_GET['p']) ? $_GET['p'] : null;
 	
-	$admin_pages = array("questions", "events", "categories", "qrcodes", "admins");
+	$admin_pages = array("questions", "events", "categories", "qrcodes", "admins", "dashboard");
 	if(in_array($current_page, $admin_pages) && $user_rows['admin']<1)
 		$user->redirect('app/');
 	
@@ -70,6 +70,10 @@
 		case 'account':
 			$page = 'account';
 			$title = 'Account settings';
+			break;
+		case 'dashboard':
+			$page = 'dashboard';
+			$title = 'Dashboard';
 			break;
 		default:
 			$page = 'home';

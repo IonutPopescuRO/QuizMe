@@ -170,6 +170,9 @@ require_once 'include/functions/pages/app.php';
 					case 'admins':
 						include 'pages/admin/admins.php';
 						break;
+					case 'dashboard':
+						include 'pages/admin/dashboard.php';
+						break;
 					case 'account':
 						include 'pages/account.php';
 						break;
