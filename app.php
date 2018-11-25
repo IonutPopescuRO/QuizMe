@@ -167,6 +167,9 @@ require_once 'include/functions/pages/app.php';
 					case 'quiz':
 						include 'pages/quiz.php';
 						break;
+					case 'admins':
+						include 'pages/admin/admins.php';
+						break;
 					default:
 						include 'pages/home.php';
 				}

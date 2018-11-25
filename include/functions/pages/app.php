@@ -33,7 +33,7 @@
 	
 	$current_page = isset($_GET['p']) ? $_GET['p'] : null;
 	
-	$admin_pages = array("questions", "events", "categories", "qrcodes");
+	$admin_pages = array("questions", "events", "categories", "qrcodes", "admins");
 	if(in_array($current_page, $admin_pages) && $user_rows['admin']<1)
 		$user->redirect('app/');
 	
@@ -62,6 +62,10 @@
 			$page = 'quiz';
 			$title = 'Quiz';
 			include 'include/functions/pages/quiz.php';
+			break;
+		case 'admins':
+			$page = 'admins';
+			$title = 'Admins';
 			break;
 		default:
 			$page = 'home';

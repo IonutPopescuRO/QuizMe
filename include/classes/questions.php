@@ -178,4 +178,18 @@ class QUESTIONS
 		$stmt = $this->conn->prepare("INSERT INTO answers (question, user, event, correct) VALUES (:question, :user, :event, :correct)");
 		$stmt->execute(array(':question'=>$id,':user'=>$_SESSION['userSession'],':event'=>$event,':correct'=>$correct));
 	}
+	
+	function checkQues($question)
+	{
+		global $database;
+
+		$stmt = $this->conn->prepare("SELECT * FROM questions WHERE question LIKE :search");
+		$stmt->bindValue(':search', '%'.$question.'%');
+		$stmt->execute();
+		$check = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($check && is_array($check) && count($check))
+			return false;
+		else return true;
+	}
 }

@@ -10,6 +10,13 @@
 											  The question has been added.
 											</div>'; 
 				?>
+				<?php if($info2==1) print '<div class="alert alert-danger alert-dismissible" role="alert">
+											  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											  </button>
+											  It seemed like the question was already there.
+											</div>'; 
+				?>
 				<p>
 					<a class="btn btn-primary" data-toggle="collapse" href="#questions" role="button" aria-expanded="false" aria-controls="questions">
 						Add questions<i class="mdi mdi-plus"></i>
