@@ -264,4 +264,50 @@ class USER
 			return true;
 		else return false;
 	}
+	
+	function checkForCode($code)
+	{
+		global $database;
+
+		$stmt = $this->conn->prepare("SELECT * FROM qrcodes WHERE code = ?");
+		$stmt->bindParam(1, $code, PDO::PARAM_STR);
+		$stmt->execute();
+		$check = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $check;
+	}
+	
+	function getEventQuestions($event)
+	{
+		global $database;
+
+		$stmt = $this->conn->prepare("SELECT * FROM events_questions WHERE event = ?");
+		$stmt->bindParam(1, $event, PDO::PARAM_STR);
+		$stmt->execute();
+		$result = $stmt->fetchAll();
+
+		$array = array();
+		
+		foreach($result as $r)
+			$array[]=$r['question'];
+		
+		shuffle($array);
+
+		$str = implode(",", $array);
+		return $str;
+	}
+	
+	function setEvent($id,	$event, $user)
+	{
+		$questions = $this->getEventQuestions($event);
+
+		$stmt = $this->conn->prepare("UPDATE qrcodes SET used=1, user=:user WHERE id=:id");
+		$stmt->execute(array(':user'=>$user, ':id'=>$id));
+		
+		$stmt = $this->conn->prepare("UPDATE tbl_users SET current_event=:event WHERE userID=:id");
+		$stmt->execute(array(':event'=>$event, ':id'=>$user));
+		
+		$stmt = $this->conn->prepare("INSERT INTO events_users(user, event, questions) VALUES (:user, :event, :questions)");
+		$stmt->execute(array(':user'=>$user, ':event'=>$event, ':questions'=>$questions));
+	}
 }

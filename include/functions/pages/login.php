@@ -1,6 +1,8 @@
 <?php
 	$user = new USER();
 	
+	$code = isset($_GET['code']) ? $_GET['code'] : null;
+	
 	if($user->is_logged_in()!="")
 		$user->redirect('app/');
 

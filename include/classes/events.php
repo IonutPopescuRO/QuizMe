@@ -102,4 +102,21 @@ class EVENTS
 		$stmt = $this->conn->prepare("INSERT INTO qrcodes (event, code) VALUES (:event, :code)");
 		$stmt->execute(array(':event'=>$event, ':code'=>$code));
 	}
+	
+	public function getCurrentEvent($id)
+	{
+		$stmt = $this->conn->prepare("SELECT * FROM events_users WHERE event=? AND user = ?");
+		$stmt->bindParam(1, $id, PDO::PARAM_INT);
+		$stmt->bindParam(2, $_SESSION['userSession'], PDO::PARAM_INT);
+		$stmt->execute();
+		$result=$stmt->fetch(PDO::FETCH_ASSOC);
+		
+		return $result;
+	}
+	
+	public function updateScore($event, $score, $status=0)
+	{
+		$stmt = $this->conn->prepare("UPDATE events_users SET status=status+:status, score=:score WHERE event=:event AND user = :user");
+		$stmt->execute(array(':score'=>$score, ':event'=>$event, ':status'=>$status, ':user'=>$_SESSION['userSession']));
+	}
 }

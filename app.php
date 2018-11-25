@@ -107,51 +107,11 @@ require_once 'include/functions/pages/app.php';
               <span class="menu-title">Home</span>
             </a>
           </li>
+          <?php if($user_rows['admin']) { ?>
           <li class="nav-item">
             <a class="nav-link" href="app/dashboard">
               <i class="menu-icon mdi mdi-television"></i>
               <span class="menu-title">Dashboard</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-content-copy"></i>
-              <span class="menu-title">Basic UI Elements</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item">
-                  <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
-              <i class="menu-icon mdi mdi-backup-restore"></i>
-              <span class="menu-title">Form elements</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
-              <i class="menu-icon mdi mdi-chart-line"></i>
-              <span class="menu-title">Charts</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">
-              <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Tables</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/icons/font-awesome.html">
-              <i class="menu-icon mdi mdi-sticker"></i>
-              <span class="menu-title">Icons</span>
             </a>
           </li>
           <li class="nav-item">
@@ -160,7 +120,6 @@ require_once 'include/functions/pages/app.php';
               <span class="menu-title">Administration</span>
               <i class="menu-arrow"></i>
             </a>
-			<?php if($user_rows['admin']) { ?>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
@@ -189,8 +148,8 @@ require_once 'include/functions/pages/app.php';
                 </li>
               </ul>
             </div>
-			<?php } ?>
           </li>
+          <?php } ?>
         </ul>
       </nav>
       <!-- partial -->
@@ -209,6 +168,9 @@ require_once 'include/functions/pages/app.php';
 						break;
 					case 'qrcodes':
 						include 'pages/admin/qrcodes.php';
+						break;
+					case 'quiz':
+						include 'pages/quiz.php';
 						break;
 					default:
 						include 'pages/home.php';

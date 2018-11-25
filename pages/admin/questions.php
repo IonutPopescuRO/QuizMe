@@ -61,7 +61,7 @@
 												</div>
 											</div>
 										</div>
-					
+
 										<div class="form-group">
 											<label for="months">Answer type</label>
 											<select class="form-control" name="answer_type" onchange="answerType(this);">
@@ -70,7 +70,7 @@
 												<option value="2">Free text answer</option>
 											</select>
 										</div>
-										
+
 										<div class="form-group" id="many_answer">
 											<label for="months">Answer</label>
 											<?php for($i=0;$i<4;$i++) { ?>

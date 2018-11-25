@@ -1,8 +1,16 @@
 <?php
 $user = new USER();
 
+$code = isset($_GET['code']) ? $_GET['code'] : null;
+
+if($code)
+	$qr_code = $user->checkForCode($code);
+
 if($user->is_logged_in()!="")
-	$user->redirect('app/');
+	if($code && isset($qr_code) && is_array($qr_code) && count($qr_code))
+		$user->redirect('app?code='.$code);
+	else
+		$user->redirect('app/');
 
 $errors = array();
 

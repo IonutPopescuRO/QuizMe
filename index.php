@@ -82,7 +82,7 @@ $user = new USER();
           <div class="col-lg-6 order-lg-1">
             <div class="p-5">
               <h2 class="display-4">Think...</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+              <p>Our platform aims at mental development through quizzes. We are motivating our users to search for answers to questions they haven’t even thought could be asked.</p>
             </div>
           </div>
         </div>
@@ -99,8 +99,8 @@ $user = new USER();
           </div>
           <div class="col-lg-6">
             <div class="p-5">
-              <h2 class="display-4">We salute you!</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+              <h2 class="display-4">Find the quizzes</h2>
+              <p>You never know when a new challenge will aproach you. We are very excited and this is why we are trying to create as many puzzles as possible and to distribute so much more acces keys.</p>
             </div>
           </div>
         </div>
@@ -117,8 +117,8 @@ $user = new USER();
           </div>
           <div class="col-lg-6 order-lg-1">
             <div class="p-5">
-              <h2 class="display-4">Let there be rock!</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+              <h2 class="display-4" style="font-size: 2.6rem;">Socialize and compete</h2>
+              <p style="font-size: 1.4rem;">This way you can interact with friends and not only; why not a stranger? Ask for help or challenge them to a smart duel.</p>
             </div>
           </div>
         </div>

@@ -146,4 +146,36 @@ class QUESTIONS
 
 			return $array;
 	}
+	
+	public function getQuestion($id)
+	{
+		$stmt = $this->conn->prepare("SELECT * FROM questions WHERE id = ?");
+		$stmt->bindParam(1, $id, PDO::PARAM_INT);
+		$stmt->execute();
+		$result=$stmt->fetch(PDO::FETCH_ASSOC);
+		
+		return $result;
+	}
+	
+	function checkAnswers($event, $id)
+	{
+		global $database;
+
+		$stmt = $this->conn->prepare("SELECT * FROM answers WHERE question = ? AND event = ? AND user = ?");
+		$stmt->bindParam(1, $id, PDO::PARAM_STR);
+		$stmt->bindParam(2, $event, PDO::PARAM_STR);
+		$stmt->bindParam(3, $_SESSION['userSession'], PDO::PARAM_STR);
+		$stmt->execute();
+		$check = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($check && is_array($check) && count($check))
+			return true;
+		else return false;
+	}
+	
+	public function addAnswer($event, $id, $correct)
+	{
+		$stmt = $this->conn->prepare("INSERT INTO answers (question, user, event, correct) VALUES (:question, :user, :event, :correct)");
+		$stmt->execute(array(':question'=>$id,':user'=>$_SESSION['userSession'],':event'=>$event,':correct'=>$correct));
+	}
 }

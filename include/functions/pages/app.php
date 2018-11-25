@@ -6,6 +6,17 @@
 	$user = new USER();
 	$questions = new QUESTIONS();
 	$events = new EVENTS();
+
+	$code = isset($_GET['code']) ? $_GET['code'] : null;
+
+	if($code)
+		$qr_code = $user->checkForCode($code);
+
+	if($code && isset($qr_code) && is_array($qr_code) && count($qr_code) && $qr_code['used']==0)
+	{
+		$user->setEvent($qr_code['id'], $qr_code['event'], $_SESSION['userSession']);
+		$user->redirect('app/quiz');
+	}
 	
 	if(!$user->is_logged_in())
 		$user->redirect('login');
@@ -46,6 +57,11 @@
 			$page = 'qrcodes';
 			$title = 'QR Code Generator';
 			include 'include/functions/pages/admin/qrcodes.php';
+			break;
+		case 'quiz':
+			$page = 'quiz';
+			$title = 'Quiz';
+			include 'include/functions/pages/quiz.php';
 			break;
 		default:
 			$page = 'home';
