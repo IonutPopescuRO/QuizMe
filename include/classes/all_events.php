@@ -69,8 +69,8 @@ class paginate
 				</th>
 				<th><?php print $row['date']; ?></th>
 				<th>
-					<a href="<?php print $site_url.'app/questions/&delete='.$row['id']; ?>" onclick="return confirm('Are you sure?');"><i style="color:red;" class="fa fa-trash-o fa-2" aria-hidden="true"></i></a></li>
-					 <a href="<?php print $site_url.'app/edit/question/'.$row['id']; ?>" data-toggle="tooltip" data-html="true" data-placement="right" title="<?php print $edit; ?>"><i class="fa fa-edit fa-1 text-primary" aria-hidden="true"></i></a>
+					<a href="<?php print $site_url.'app/events/&delete='.$row['id']; ?>" onclick="return confirm('Are you sure?');"><i style="color:red;" class="fa fa-trash-o fa-2" aria-hidden="true"></i></a></li>
+					 <a href="<?php print $site_url.'app/edit/events/'.$row['id']; ?>" data-toggle="tooltip" data-html="true" data-placement="right" title="<?php print $edit; ?>"><i class="fa fa-edit fa-1 text-primary" aria-hidden="true"></i></a>
 				</th>
 
 			</tr>

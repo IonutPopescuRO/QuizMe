@@ -42,6 +42,11 @@
 			$title = 'Managing events';
 			include 'include/functions/pages/admin/events.php';
 			break;
+		case 'qrcodes':
+			$page = 'qrcodes';
+			$title = 'QR Code Generator';
+			include 'include/functions/pages/admin/qrcodes.php';
+			break;
 		default:
 			$page = 'home';
 			$title = 'Home';

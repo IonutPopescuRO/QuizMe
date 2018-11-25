@@ -133,4 +133,17 @@ class QUESTIONS
 		
 		return $result;
 	}
+	
+	public function getAllQuestions()
+	{
+		$stmt = $this->conn->prepare("SELECT * FROM questions");
+		$stmt->execute();
+		$result=$stmt->fetchAll();
+		
+		$array = array();
+		foreach($result as $row)
+			$array[$row['category']][$row['difficulty']][$row['id']] = $row['question'];
+
+			return $array;
+	}
 }

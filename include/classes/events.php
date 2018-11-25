@@ -68,6 +68,8 @@ class EVENTS
 	
 	public function addEvent($name, $expire, $score, $questions)
 	{
+		print $expire;
+		die();
 		$stmt = $this->conn->prepare("INSERT INTO events (name, expire, score) VALUES (:name, :expire, :score)");
 		$stmt->execute(array(':name'=>$name,':expire'=>$expire,':score'=>$score));
 		$lastId = $this->conn->lastInsertId();
@@ -79,10 +81,25 @@ class EVENTS
 		}
 	}
 	
-	public function removeEvents($id)
+	public function removeEvent($id)
 	{
 		$stmt = $this->conn->prepare('DELETE FROM events WHERE id = ?');
 		$stmt->bindParam(1, $id, PDO::PARAM_INT);
 		$stmt->execute();
+	}
+	
+	public function getAllEvents()
+	{
+		$stmt = $this->conn->prepare("SELECT * FROM events WHERE expire < NOW() order by date DESC");
+		$stmt->execute();
+		$result=$stmt->fetchAll();
+		
+		return $result;
+	}
+	
+	public function addQrCode($event, $code)
+	{
+		$stmt = $this->conn->prepare("INSERT INTO qrcodes (event, code) VALUES (:event, :code)");
+		$stmt->execute(array(':event'=>$event, ':code'=>$code));
 	}
 }

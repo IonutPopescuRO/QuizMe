@@ -93,12 +93,68 @@
 										</div>
 										
 										<div class="form-group" id="manual" style="display: none;">
-											<label for="months">Answer</label>
-											<textarea class="form-control" name="free_answer" rows="2"></textarea>
+											<label for="months">Manual - Questions</label>
+											<ul class="nav nav-tabs tab-basic" role="tablist">
+												<?php foreach($categories as $key => $category) { ?>
+												<li class="nav-item">
+													<a class="nav-link<?php if(!$key) print ' active show'; ?>" id="category_tab<?php print $category['id']; ?>" data-toggle="tab" href="#category<?php print $category['id']; ?>" role="tab" aria-controls="category<?php print $category['id']; ?>" aria-selected="false"><?php print $category['name']; ?></a>
+												</li>
+												<?php } ?>
+											</ul>
+											<div class="tab-content tab-content-basic">
+												<?php
+													$q = $questions->getAllQuestions();
+													foreach($categories as $key => $category) 
+													{
+												?>
+												<div class="tab-pane fade<?php if(!$key) print ' active show'; ?>" id="category_tab<?php print $category['id']; ?>" role="tabpanel" aria-labelledby="category_tab<?php print $category['id']; ?>">
+													<div class="vertical-tab"><br>
+														<ul class="nav nav-tabs tab-solid tab-solid-info mr-4" role="tablist">
+															<?php if(isset($q[$category['id']][1])) { ?>
+															<li class="nav-item">
+																<a class="nav-link active" id="diff-tab-<?php print $category['id']; ?>-1" data-toggle="tab" href="#diff-<?php print $category['id']; ?>-1" role="tab" aria-controls="diff-<?php print $category['id']; ?>-1" aria-selected="true">Easy</a>
+															</li>
+															<?php } if(isset($q[$category['id']][2])) { ?>
+															<li class="nav-item">
+																<a class="nav-link" id="diff-tab-<?php print $category['id']; ?>-2" data-toggle="tab" href="#diff-<?php print $category['id']; ?>-2" role="tab" aria-controls="diff-<?php print $category['id']; ?>-2" aria-selected="true">Normal</a>
+															</li>
+															<?php } if(isset($q[$category['id']][3])) { ?>
+															<li class="nav-item">
+																<a class="nav-link" id="diff-tab-<?php print $category['id']; ?>-3" data-toggle="tab" href="#diff-<?php print $category['id']; ?>-3" role="tab" aria-controls="diff-<?php print $category['id']; ?>-3" aria-selected="true">Hard</a>
+															</li>
+															<?php } ?>
+														</ul>
+														<div class="tab-content tab-content-solid">
+														<?php for($dif=1;$dif<=3;$dif++) if(isset($q[$category['id']][$dif])) { ?>
+															<div class="tab-pane fade<?php if($dif==1) print ' active show'; ?>" id="diff-<?php print $category['id']; ?>-<?php print $dif; ?>" role="tabpanel" aria-labelledby="diff-tab-<?php print $category['id'].'-'.$dif; ?>">
+																<br>
+																<?php 
+																	foreach($q[$category['id']][$dif] as $key=>$z)
+																	{
+																?>
+																<div class="form-group">
+																	<div class="row">
+																		<div class="col-1"></div>
+																		<div class="col-1">
+																			<input type="checkbox" class="form-check-input" name="manual_<?php print $key; ?>">
+																		</div>
+																		<div class="col-10"><p><?php print $z; ?></p></div>
+																	</div>
+																</div><hr>
+																<?php
+																	}
+																?>
+															</div>
+														<?php } ?>
+														</div>
+													</div>
+												</div>
+												<?php } ?>
+											</div>
 										</div>
 									</div>
 								</div>
-								<button class="add_form_field file-upload-browse btn btn-info" type="submit">Add question</button>
+								<button class="add_form_field file-upload-browse btn btn-info" type="submit">Add event</button>
 							</div>
 						</form>
 

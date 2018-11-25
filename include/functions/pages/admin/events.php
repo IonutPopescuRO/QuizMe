@@ -17,14 +17,14 @@
 	if(isset($_GET['delete']))
 	{
 		$events->removeEvent($_GET['delete']);
-		$user->redirect('app/questions');
+		$user->redirect('app/events');
 	}
 	
 	require_once("include/classes/all_events.php");
 	$paginate = new paginate();
 	
 	$info = 0;
-	if(isset($_POST['name']))
+	if(isset($_POST['name']) && $_POST['name']!='')
 	{
 		$quest = array();
 		if($_POST['questions_rules']==0)//auto
@@ -41,22 +41,17 @@
 						$quest[]=$x['id'];
 				}
 		} else {
-
+			foreach($_POST as $key=>$post)
+				if(substr($key, 0, 6 ) === "manual")
+				{
+					$q = explode("_", $key);
+					$quest[]=$q[1];
+				}
 		}
 
 		$events->addEvent($_POST['name'], $_POST['expire'], $_POST['quiz_type'], $quest);
 
 		$info = 1;
-	}
-	if(isset($_POST['upload']))
-	{
-		$rows = array_map(function($v){return str_getcsv($v, ";");}, file($_FILES['csv_file']['tmp_name']));
-		$header = array_shift($rows);
-		$csv = [];
-		foreach($rows as $row)
-			$csv[] = array_combine($header, $row);
-		print_r($rows);
-		die();
 	}
 	
 	$categories = $questions->getAllCategories();

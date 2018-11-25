@@ -181,6 +181,12 @@ require_once 'include/functions/pages/app.php';
 					<span class="menu-title">Managing events</span>
 				  </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="app/qrcodes">
+					<i class="menu-icon fa fa-qrcode"></i>
+					<span class="menu-title">QR Code Generator</span>
+				  </a>
+                </li>
               </ul>
             </div>
 			<?php } ?>
@@ -200,6 +206,9 @@ require_once 'include/functions/pages/app.php';
 						break;
 					case 'events':
 						include 'pages/admin/events.php';
+						break;
+					case 'qrcodes':
+						include 'pages/admin/qrcodes.php';
 						break;
 					default:
 						include 'pages/home.php';
@@ -252,7 +261,7 @@ require_once 'include/functions/pages/app.php';
   <?php } else if($current_page=='events') { ?>
 	<script src="js/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript">
-		$(".form_datetime").datetimepicker({format: 'dd-mm-yyyy hh:ii'});
+		$(".form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
 		
 		function questions(that) {
 			document.getElementById("auto").style.display = "none";
