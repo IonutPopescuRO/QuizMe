@@ -67,6 +67,10 @@
 			$page = 'admins';
 			$title = 'Admins';
 			break;
+		case 'account':
+			$page = 'account';
+			$title = 'Account settings';
+			break;
 		default:
 			$page = 'home';
 			$title = 'Home';
