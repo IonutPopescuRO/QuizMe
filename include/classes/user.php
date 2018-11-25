@@ -287,8 +287,6 @@ class USER
 	
 	function getEventQuestions($event)
 	{
-		global $database;
-
 		$stmt = $this->conn->prepare("SELECT * FROM events_questions WHERE event = ?");
 		$stmt->bindParam(1, $event, PDO::PARAM_STR);
 		$stmt->execute();
@@ -359,6 +357,22 @@ class USER
 	function usersCount()
 	{
 		$stmt = $stmt = $this->conn->prepare("SELECT count(*) FROM tbl_users");
+		$stmt->execute(); 
+		$used = $stmt->fetchColumn();
+
+		return $used;
+	}
+	
+	function getUsers()
+	{
+		$stmt = $this->conn->prepare("SELECT * FROM tbl_users ORDER BY userID DESC");
+		$stmt->execute();
+		return $result = $stmt->fetchAll();
+	}
+	
+	function usersQuizzesCount($user)
+	{
+		$stmt = $stmt = $this->conn->prepare("SELECT count(*) FROM events_users WHERE user = ".$user);
 		$stmt->execute(); 
 		$used = $stmt->fetchColumn();
 

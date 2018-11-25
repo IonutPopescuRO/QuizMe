@@ -79,84 +79,22 @@
                         <thead>
                           <tr>
                             <th> # </th>
-                            <th> First name </th>
-                            <th> Progress </th>
-                            <th> Amount </th>
-                            <th> Sales </th>
-                            <th> Deadline </th>
+                            <th> Name </th>
+                            <th> Email </th>
+                            <th> Quizzes </th>
+                            <th> Phone </th>
                           </tr>
                         </thead>
                         <tbody>
+						<?php foreach($user->getUsers() as $key => $x) { ?>
                           <tr>
-                            <td class="font-weight-medium"> 1 </td>
-                            <td> Herman Beck </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-success progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $ 77.99 </td>
-                            <td class="text-danger"> 53.64%
-                              <i class="mdi mdi-arrow-down"></i>
-                            </td>
-                            <td> May 15, 2015 </td>
+                            <td class="font-weight-medium"> <?php print ($key+1); ?> </td>
+                            <td> <?php print $x['userName']; ?></td>
+                            <td> <a href="mailto:<?php print $x['userEmail']; ?>" target="_top"><?php print $x['userEmail']; ?></a></td>
+                            <td> <?php print $user->usersQuizzesCount($x['userID']); ?></td>
+                            <td> +4<?php print $x['userPhone']; ?></td>
                           </tr>
-                          <tr>
-                            <td class="font-weight-medium"> 2 </td>
-                            <td> Messsy Adam </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $245.30 </td>
-                            <td class="text-success"> 24.56%
-                              <i class="mdi mdi-arrow-up"></i>
-                            </td>
-                            <td> July 1, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td class="font-weight-medium"> 3 </td>
-                            <td> John Richards </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $138.00 </td>
-                            <td class="text-danger"> 28.76%
-                              <i class="mdi mdi-arrow-down"></i>
-                            </td>
-                            <td> Apr 12, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td class="font-weight-medium"> 4 </td>
-                            <td> Peter Meggik </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $ 77.99 </td>
-                            <td class="text-danger"> 53.45%
-                              <i class="mdi mdi-arrow-down"></i>
-                            </td>
-                            <td> May 15, 2015 </td>
-                          </tr>
-                          <tr>
-                            <td class="font-weight-medium"> 5 </td>
-                            <td> Edward </td>
-                            <td>
-                              <div class="progress">
-                                <div class="progress-bar bg-danger progress-bar-striped" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                              </div>
-                            </td>
-                            <td> $ 160.25 </td>
-                            <td class="text-success"> 18.32%
-                              <i class="mdi mdi-arrow-up"></i>
-                            </td>
-                            <td> May 03, 2015 </td>
-                          </tr>
+						<?php } ?>
                         </tbody>
                       </table>
                     </div>
