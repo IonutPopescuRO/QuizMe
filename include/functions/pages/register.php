@@ -7,14 +7,14 @@ if($code)
 	$qr_code = $user->checkForCode($code);
 
 if($user->is_logged_in()!="")
-	if($code && isset($qr_code) && is_array($qr_code) && count($qr_code))
+	if($code && isset($qr_code) && is_array($qr_code) && count($qr_code) && $qr_code['used']==0)
 		$user->redirect('app?code='.$code);
 	else
 		$user->redirect('app/');
 
 $errors = array();
 
-if(isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['password']) && isset($_POST['rpassword']) && isset($_POST['email']))
+if(isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['password']) && isset($_POST['rpassword']) && isset($_POST['email']) && $qr_code['used']==0)
 {
 	$name = trim($_POST['name']);
 	$email = trim($_POST['email']);
@@ -50,7 +50,7 @@ if(isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['password']) 
 	
 	if(!count($errors))
 	{
-		if($user->register($name,$email,$phone,$password,$code,$sms_code))
+		if($user->register($name,$email,$phone,$password,$code,$sms_code,$qr_code))
 		{			
 			$id = $user->lasdID();		
 			$key = base64_encode($id);

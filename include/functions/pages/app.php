@@ -33,7 +33,7 @@
 	
 	$current_page = isset($_GET['p']) ? $_GET['p'] : null;
 	
-	$admin_pages = array("questions", "events", "categories");
+	$admin_pages = array("questions", "events", "categories", "qrcodes");
 	if(in_array($current_page, $admin_pages) && $user_rows['admin']<1)
 		$user->redirect('app/');
 	

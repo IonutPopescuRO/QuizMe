@@ -28,7 +28,7 @@ require_once 'include/functions/pages/register.php';
                     <div class="col-lg-4 mx-auto">
                         <div class="auto-form-wrapper">
                             <form action="" method="post">
-							<?php
+							<?php if($code && isset($qr_code) && is_array($qr_code) && count($qr_code) && $qr_code['used']==0) { 
 								foreach($errors as $error)
 											print '<div class="alert alert-danger alert-dismissible" role="alert">
 											  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -98,6 +98,18 @@ require_once 'include/functions/pages/register.php';
                                 <div class="form-group">
                                     <button class="btn btn-primary submit-btn btn-block" type="submit">Register</button>
                                 </div>
+							<?php } else if(!$code) print '<div class="alert alert-danger alert-dismissible" role="alert">
+											  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											  </button>
+											  You can not register without a valid key.
+											</div>'; 
+										else print '<div class="alert alert-danger alert-dismissible" role="alert">
+											  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											  </button>
+											  The key has already been used.
+											</div>';  ?>
 								<div class="text-block text-center my-3">
 									<span class="text-small font-weight-semibold">Already have and account ?</span>
 									<a href="login.html" class="text-black text-small">Login</a>

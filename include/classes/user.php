@@ -31,19 +31,27 @@ class USER
 		return $stmt;
 	}
 	
-	public function register($uname,$email,$phone,$upass,$code,$sms)
+	public function register($uname,$email,$phone,$upass,$code,$sms,$qr_code=null)
 	{
 		try
-		{							
+		{
+			
 			$password = md5($upass);
-			$stmt = $this->conn->prepare("INSERT INTO tbl_users(userName,userEmail,userPhone,userPass,tokenCode,tokenSMS) 
-			                                             VALUES(:user_name, :user_mail, :user_phone, :user_pass, :active_code, :sms_code)");
+			$stmt = $this->conn->prepare("INSERT INTO tbl_users(userName,userEmail,userPhone,userPass,tokenCode,tokenSMS,current_event) 
+			                                             VALUES(:user_name, :user_mail, :user_phone, :user_pass, :active_code, :sms_code, :current_event)");
 			$stmt->bindparam(":user_name",$uname);
 			$stmt->bindparam(":user_mail",$email);
 			$stmt->bindparam(":user_phone",$phone);//
 			$stmt->bindparam(":user_pass",$password);
 			$stmt->bindparam(":active_code",$code);
 			$stmt->bindparam(":sms_code",$sms);//
+			$stmt->bindparam(":current_event",$qr_code['event']);//
+			
+			if($qr_code)
+			{
+				$last_id = $this->conn->lastInsertId();
+				$this->setEvent($qr_code['id'], $qr_code['event'], $last_id);
+			}
 			
 			$stmt->execute();	
 			return $stmt;
